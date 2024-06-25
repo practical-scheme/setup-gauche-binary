@@ -10,4 +10,7 @@ jobs:
       run: sudo apt-get install -y libgdbm-dev libmbedtls-dev
     - name: "Build"
       run: |
-        ./build-binary-tarball.sh
+        curl -f -o get-gauche.sh https://raw.githubusercontent.com/shirok/get-gauche/master/get-gauche.sh
+        chmod +x get-gauche.sh
+        ./get-gauche.sh --prefix /usr --destdir package --version latest --force
+        (cd package; tar czvf ../gauche-binary-ubuntu-latest.tar.gz .)
