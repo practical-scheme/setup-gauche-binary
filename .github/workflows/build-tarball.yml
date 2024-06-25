@@ -6,6 +6,7 @@ jobs:
   trigger-tester:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
     - name: "Install tools"
       run: sudo apt-get install -y libgdbm-dev libmbedtls-dev
     - name: "Build"
@@ -14,3 +15,8 @@ jobs:
         chmod +x get-gauche.sh
         ./get-gauche.sh --prefix /usr --destdir package --version latest --force
         (cd package; tar czvf ../gauche-binary-ubuntu-latest.tar.gz .)
+    - name: "Upload"
+      run: |
+        gh release upload v1 gauche-binary-ubuntu-latest.tar.gz --clobber
+      env:
+        GITHUB_TOKEN: ${{ github.TOKEN }}
