@@ -6,8 +6,6 @@ jobs:
   trigger-tester:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      repository: https://github.com/practical-scheme/get-gauche.sh
     - name: "Install tools"
       run: sudo apt-get install -y libgdbm-dev libmbedtls-dev
     - name: "Build"
