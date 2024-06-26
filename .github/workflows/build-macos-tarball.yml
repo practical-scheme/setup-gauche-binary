@@ -1,0 +1,22 @@
+name: Build release binary on macos-latest to be used for other actions
+
+on: [ workflow_dispatch ]
+
+jobs:
+  build-macos-latest:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Install tools"
+      run: brew install automake mbedtls libtool
+    - name: "Build"
+      run: |
+        curl -f -o get-gauche.sh https://raw.githubusercontent.com/shirok/get-gauche/master/get-gauche.sh
+        chmod +x get-gauche.sh
+        ./get-gauche.sh --prefix /usr/local --destdir package --version latest --force
+        (cd package; tar czvf ../gauche-binary-macos-latest.tar.gz .)
+    - name: "Upload"
+      run: |
+        gh release upload v1 gauche-binary-macos-latest.tar.gz --clobber
+      env:
+        GITHUB_TOKEN: ${{ github.TOKEN }}

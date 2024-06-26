@@ -1,9 +1,9 @@
-name: Build release binary to be used for other actions
+name: Build release binary on ubuntu-latest to be used for other actions
 
 on: [ workflow_dispatch ]
 
 jobs:
-  trigger-tester:
+  build-ubnutu-latest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
