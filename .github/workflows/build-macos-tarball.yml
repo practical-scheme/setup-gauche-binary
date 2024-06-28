@@ -13,7 +13,7 @@ jobs:
       run: |
         curl -f -o get-gauche.sh https://raw.githubusercontent.com/shirok/get-gauche/master/get-gauche.sh
         chmod +x get-gauche.sh
-        ./get-gauche.sh --prefix /usr/local --auto --sudo --keep-builddir --version latest --force
+        ./get-gauche.sh --prefix /usr/local --auto --sudo --keep-builddir --version latest --force --configure-args='--with-tls=mbedtls-internal'
         (cd build-*/Gauche-*; sudo make DESTDIR=`pwd`/../../package install)
         (cd package; tar czvf ../gauche-binary-macos-latest.tar.gz .)
     - name: "Upload"
